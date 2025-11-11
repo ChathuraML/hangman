@@ -22,12 +22,13 @@ while count < len(guess_word):
     letter = input("Guess a letter: ").lower()
 
     
-    if letter not in already_guessed and letter in guess_word:
-        already_guessed.append(letter)
-        print(hangman_stages[hangman_stage])
-    elif letter in already_guessed and letter in guess_word:
-        print(f"You've already guessed {letter}")
-        print(hangman_stages[hangman_stage])
+    if letter in guess_word:
+        if letter not in already_guessed:
+            already_guessed.append(letter)
+            print(hangman_stages[hangman_stage])
+        else:
+            print(f"You've already guessed {letter}")
+            print(hangman_stages[hangman_stage])
     else:
         hangman_stage += 1
         print(f"You guessed {letter}, that's not in the word. You lose a life")
@@ -35,20 +36,19 @@ while count < len(guess_word):
     
     
     for i in range(len(guess_word)):
-
         if guess_word[i] == letter:
             placeholder[i] = letter
         
         
-        count = len(placeholder) - placeholder.count('_')
+    count = len(placeholder) - placeholder.count('_')
                                 
     print(''.join(placeholder)+"\n")
 
     if hangman_stage == 6:
-        print(f"*******************************************IT WAS {guess_word}, You Dead!!!**************************************")
+        print(f"*******************************************IT WAS {guess_word}, You LOSE!!!**************************************")
         break
     if count == len(placeholder):
-        print("*******************************************You Won!!!!**************************************")
+        print("********************************************You Won!!!!**************************************")
         break
 
     
